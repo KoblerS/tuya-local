@@ -1,0 +1,42 @@
+name: Wireless doorbell
+products:
+  - id: uwchq2i698gr8b0x
+    name: D1W-MET_T1-3S
+entities:
+  - entity: switch
+    name: Alarm sound
+    icon: "mdi:bullhorn"
+    category: config
+    dps:
+      - id: 4
+        type: boolean
+        name: switch
+  - entity: switch
+    name: Alarm light
+    icon: "mdi:alarm-light"
+    category: config
+    dps:
+      - id: 6
+        type: boolean
+        name: switch
+  - entity: binary_sensor
+    name: Ringing
+    class: sound
+    category: diagnostic
+    dps:
+      - id: 102
+        type: string
+        name: sensor
+        optional: true
+        persist: false
+        mapping:
+          - dps_val: "Invalid"
+            value: false
+          - dps_val: null
+            value: false
+          - value: true
+      - id: 102
+        type: string
+        name: ring_message
+        optional: true
+        persist: false
