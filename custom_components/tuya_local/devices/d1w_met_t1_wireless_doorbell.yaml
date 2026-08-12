@@ -1,42 +1,77 @@
-name: Wireless doorbell
+name: Doorbell
 products:
   - id: uwchq2i698gr8b0x
     name: D1W-MET_T1-3S
 entities:
+  - entity: siren
+    icon: "mdi:bell"
+    dps:
+      - id: 2
+        type: integer
+        name: tone
+        optional: true
+      - id: 3
+        type: integer
+        name: volume_level
+        optional: true
+        range:
+          min: 0
+          max: 4
+      - id: 1
+        type: base64
+        name: button_config
+        optional: true
+      - id: 7
+        type: base64
+        name: undisturb_schedule
+        optional: true
+      - id: 10
+        type: integer
+        name: doorbell_call
+        optional: true
   - entity: switch
-    name: Alarm sound
-    icon: "mdi:bullhorn"
+    name: Night light
+    icon: "mdi:weather-night"
     category: config
     dps:
       - id: 4
         type: boolean
         name: switch
   - entity: switch
-    name: Alarm light
-    icon: "mdi:alarm-light"
+    name: Mobile notifications
+    icon: "mdi:message-alert"
     category: config
     dps:
       - id: 6
         type: boolean
         name: switch
-  - entity: binary_sensor
-    name: Ringing
-    class: sound
-    category: diagnostic
+  - entity: event
+    class: doorbell
     dps:
-      - id: 102
-        type: string
-        name: sensor
+      - id: 5
+        type: base64
+        name: event
         optional: true
-        persist: false
         mapping:
-          - dps_val: "Invalid"
-            value: false
           - dps_val: null
-            value: false
-          - value: true
-      - id: 102
-        type: string
-        name: ring_message
+            value: null
+          - value: ring
+      - id: 5
+        type: base64
         optional: true
-        persist: false
+        name: message
+  - entity: select
+    name: Doorbell mode
+    icon: "mdi:bell-cog"
+    category: config
+    dps:
+      - id: 101
+        type: string
+        name: option
+        mapping:
+          - dps_val: "LightSound"
+            value: Light and sound
+          - dps_val: "Light"
+            value: Light only
+          - dps_val: "Sound"
+            value: Sound only
